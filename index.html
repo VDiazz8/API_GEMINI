@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IA com Gemini</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Assistente de IA — Gemini</h1>
+
+        <textarea id="prompt" placeholder="Digite sua pergunta..."></textarea>
+
+        <button onclick="enviar()">Enviar</button>
+
+        <div id="resposta"></div>
+    </div>
+
+    <script>
+        async function enviar() {
+            const prompt = document.getElementById("prompt").value;
+            const respostaEl = document.getElementById("resposta");
+            respostaEl.innerHTML = "Carregando...";
+
+            const req = await fetch("https://SEU-BACKEND.onrender.com/gemini", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ prompt })
+            });
+
+            const data = await req.json();
+            respostaEl.innerHTML = data.resposta;
+        }
+    </script>
+</body>
+</html>
